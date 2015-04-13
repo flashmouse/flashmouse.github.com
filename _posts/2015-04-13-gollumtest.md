@@ -1,6 +1,6 @@
 ---
 layout: post
 title: ahahah
-tags: test nothing
+tags: [test,nothing]
 ---
 hehe
