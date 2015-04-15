@@ -1,11 +1,10 @@
 ---
-layout:post
-title:jenkins配置与使用总结
-categories:[java]
-tags:[java,安装]
+layout: post
+title: jenkins配置与使用总结
+categories: [java]
+tags: [java,安装]
 ---
-    jenkins可以快速从源码进行项目构建，并帮助你将构建出来的程序部署到需要的位置，节约了很多人力操作……公司号称要后台全用java，却连这种基本的持续构成工具都没有推广使用，全部都由每个项目组自行摸索使用，恩。截止目前位置我只用其构建过tomcat的web项目以及普通java命令行项目。
-    
+    jenkins可以快速从源码进行项目构建，并帮助你将构建出来的程序部署到需要的位置，节约了很多人力操作……公司号称要后台全用java，**却连这种基本的持续构成工具都没有推广使用，全部都由每个项目组自行摸索使用，恩**。截止目前位置我只用其构建过tomcat的web项目以及普通java命令行项目。
     安装步骤如下：
     首先去官网下一个下来……我自己用的下载地址是http://ftp-chi.osuosl.org/pub/jenkins/war/1.595/jenkins.war。
     下完以后随便将这个玩意丢哪个目录去。运行方式有两种。一种是直接在命令行执行java -jar jenkins.war，还有一种是将其丢进tomcat中执行。我偷懒用得第一种方法。执行完以后访问127.0.0.1:8080页面，ok没问题。
