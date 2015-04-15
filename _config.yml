@@ -1,0 +1,7 @@
+name: _(:з」∠)_ 
+markdown: redcarpet
+email : 522247671@qq.com
+github : flashmouse
+paginate: 10
+paginate_path: "page:num"
+safe: false
