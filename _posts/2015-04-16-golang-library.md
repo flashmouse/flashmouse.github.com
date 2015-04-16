@@ -16,3 +16,4 @@ web相关：
 其它：
 =
 * [github.com/gorilla/context](https://github.com/gorilla/context)  gorilla/context is a general purpose registry for global request variables.
+* [gopkg.in/tomb.v1](https://github.com/go-tomb/tomb) The tomb package helps with clean goroutine termination in the Go language.
