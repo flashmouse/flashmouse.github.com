@@ -4,6 +4,7 @@ title: golang做push系统遇到的问题的整理(一)
 categories: [golang]
 tags: [golang,记录]
 ---
+
 啊哈哈哈，写着玩……_(:з」∠)_
 
 golang版本1.3,最新的是1.4的。吧。大概。操作系统10.9.4的osx。
@@ -11,6 +12,7 @@ golang版本1.3,最新的是1.4的。吧。大概。操作系统10.9.4的osx。
 只是做一个测试，server端和client端代码都很简单。
 
 服务端代码：
+
 ```
 package server
 
@@ -137,7 +139,7 @@ func main() {
 
 没做任何容错，能跑就行。恩。
 
-在迈向1万个链接的路上很快就遇到了第一个问题，提示“too many open files”。神机妙算早已知晓，但是改起来却很麻烦……
+在迈向1万个链接的路上很快就遇到了第一个问题，提示"too many open files"。神机妙算早已知晓，但是改起来却很麻烦……
 
 本来以为只要单纯的```sudo ulimit -n [num]```就可以搞定问题，但是只要我想设置超出10240的数字，就会报错```-bash: ulimit: open files: cannot modify limit: Operation not permitted```，很残念的是sudo对此无效，它只会临时创建一个root环境，执行完没有任何效果。
 
@@ -157,15 +159,10 @@ func main() {
 我猜想是不是需要加上socket的so_reuseaddr参数。SO_REUSEADDR可以用在以下四种情况下。
 (摘自《Unix网络编程》卷一，即UNPv1)
 
-1.当有一个有相同本地地址和端口的socket1处于TIME_WAIT状态时，而你启
-动的程序的socket2要占用该地址和端口，你的程序就要用到该选项。
-2.SO_REUSEADDR允许同一port上启动同一服务器的多个实例(多个进程)。但
-每个实例绑定的IP地址是不能相同的。在有多块网卡或用IP Alias技术的机器可
-以测试这种情况。
-3.SO_REUSEADDR允许单个进程绑定相同的端口到多个socket上，但每个soc
-ket绑定的ip地址不同。这和2很相似，区别请看UNPv1。
-4.SO_REUSEADDR允许完全相同的地址和端口的重复绑定。但这只用于UDP的
-多播，不用于TCP。
+1. 当有一个有相同本地地址和端口的socket1处于TIME_WAIT状态时，而你启动的程序的socket2要占用该地址和端口，你的程序就要用到该选项。
+2. SO_REUSEADDR允许同一port上启动同一服务器的多个实例(多个进程)。但每个实例绑定的IP地址是不能相同的。在有多块网卡或用IP Alias技术的机器可以测试这种情况。
+3. SO_REUSEADDR允许单个进程绑定相同的端口到多个socket上，但每个socket绑定的ip地址不同。这和2很相似，区别请看UNPv1。
+4. SO_REUSEADDR允许完全相同的地址和端口的重复绑定。但这只用于UDP的多播，不用于TCP。
 
 然后我发现我没找到golang哪里设置这么些参数……
 
