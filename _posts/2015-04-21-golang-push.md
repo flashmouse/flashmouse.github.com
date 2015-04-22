@@ -13,7 +13,7 @@ golang版本1.3,最新的是1.4的。吧。大概。操作系统10.9.4的osx。
 
 服务端代码：
 
-```
+```go
 package server
 
 import (
@@ -84,14 +84,14 @@ func (s *Server) accept() {
 
 至于执行嘛就是
 
-```
+```go
 s := server.NewServer(ip, strconv.Itoa(port))
 s.Start()
 ```
 
 客户端代码：
 
-```
+```go
 package main
 
 import (
