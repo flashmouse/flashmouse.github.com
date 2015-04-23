@@ -11,15 +11,15 @@ tags: [记录,hadoop,java]
 
 我想想啊，其实集群不是我搭建的，集群遇到问题我基本也不去处理退给搭建集群的组长慢慢折腾，这一年和hadoop有关的操作主要集中在利用java程序去读写hdfs、hive和hbase上。所以就是写java操作hdfs的程序，一些mr代码等。姑且记录一下遇到的问题……想到多少写多少。
 
-1. 写mapreduce项目时，如何将外部jar包导入classpath目录。
-2. 用mr项目从hbase导入导出数据
-3. mr项目将数据导出到mysql时的问题。
-4. hive中hql直接导出数据到mysql
+1. [写mapreduce项目时，如何将外部jar包导入classpath目录。](#tag1)
+2. [用mr项目从hbase导入导出数据](#tag2)
+3. [mr项目将数据导出到mysql时的问题。](#tag3)
+4. [hive中hql直接导出数据到mysql](#tag4)
 
-###  写mapreduce项目时，如何将外部jar包导入classpath目录。
+###<span id="tag1">  写mapreduce项目时，如何将外部jar包导入classpath目录。</span>
 一个mr的jar包丢给hadoop执行时，hadoop会将这个包复制到所有即将运行这个jar包里map和reduce任务的task节点上。但是jar包引用的外部jar包和配置文件需要我们手动丢到hdfs的任务缓存目录上。我是参考[这篇文章](http://blog.cloudera.com/blog/2011/01/how-to-include-third-party-libraries-in-your-map-reduce-job/)的内容完成的。具体怎么操作的不记得啊- -。貌似是加了个参数-libjar还是啥的，还得写绝对路径一个文件一个文件的加。将来如果还有哪个胆大包天的公司敢让我做hadoop得话大概或许还能有机会碰上这个问题恩。
 
-### 用mr项目从hbase导入导出数据。
+###<span id="tag2"> 用mr项目从hbase导入导出数据。</span>
 
 说实在话，我觉得hbase简直弱爆了，count速度无法直视，查数据只能以k-v的形式进行，如果对key加上filter操作速度大幅下降，我觉得还不如我参加的mysql的开源项目mycat好用。功能比hbase多，速度还快，成本还低……
 
@@ -174,10 +174,10 @@ public class HBaseTool extends Configured implements Tool {
 
 这是个从hdfs读数据写入hbase的mr，从hbase读数据也差不多啦恩！不知道hadoop2.X这些类还在不在……
 
-### mr项目将数据导出到mysql时的问题。 
+###<span id="tag3"> mr项目将数据导出到mysql时的问题。</span> 
 
 mr项目将数据导出导mysql主要是用DBOutputFormat类。新版本的hadoop不知道怎么样，公司集群使用的hadoop版本中这个类很2，开了源码一看，里面用的jdbc的PreparedStatement，所有数据全部都准备完了它才commit到数据库。我这一个mr任务可是要往数据库插几百万条数据啊- -理所当然的内存吃不消跪了。可以修改源代码，让它每X条就commit一次，还有个方法是像我做得这样，手动设置这个任务的reduce数量```job.setNumReduceTasks(64);```，这样每次commit的记录数就会变少……就可以避免内存跪掉的问题……
 
-### hive中hql直接导出数据到mysql 
+###<span id="tag4"> hive中hql直接导出数据到mysql </span>
 
 这个用导了hive的udf，用户自定义函数，把那个啥jar包丢到hive里，就可以……找不到了恩_(:з」∠)_
