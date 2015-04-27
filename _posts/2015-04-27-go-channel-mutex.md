@@ -225,6 +225,7 @@ type hehe struct{
 ```
 
 执行结果为：
+
 ```
 /usr/local/go/bin/go run /Users/lxy/Documents/go/src/github.com/flashmouse/go-channel-map/test/test.go
 1.269987278s
